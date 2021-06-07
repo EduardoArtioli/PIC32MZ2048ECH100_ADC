@@ -29,13 +29,13 @@ XC32.
   (v1.44)
   (v1.40)
 
-## Links
+## Links PIC32MZ2048ECH100
 
-#### Product page (microchip)
+#### Product page
 
 [https://www.microchip.com/wwwproducts/en/PIC32MZ2048ECH100](https://www.microchip.com/wwwproducts/en/PIC32MZ2048ECH100)
 
-#### Datasheet PIC32MZ2048ECH100
+#### Datasheet
 
 [https://ww1.microchip.com/downloads/en/DeviceDoc/60001191G.pdf](https://ww1.microchip.com/downloads/en/DeviceDoc/60001191G.pdf)
 
