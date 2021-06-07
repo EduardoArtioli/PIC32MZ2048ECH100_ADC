@@ -143,19 +143,10 @@ static void BiosUARTInitialize(USART_MODULE_ID index, INT_SOURCE sourceRx, INT_S
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, vectorTx, INT_SUBPRIORITY_LEVEL0);
 }
 
-// void __ISR(_UART1_TX_VECTOR, ipl2AUTO) _uart1_tx_isr_handler(void) {
-//     if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT)){
-//         //BiosUARTTXDisableInterrupt(0);   
-//         PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
-//     }
-// }
-
 void BiosPrintf(const char* format, ...)
 {
     char myStr[500];
-    //unsigned char t[20];
     unsigned int i = 0;
-    //int8 j;
     va_list args;
 
     va_start(args, format);
@@ -165,21 +156,18 @@ void BiosPrintf(const char* format, ...)
     {
         while (!(!U1STAbits.UTXBF && U1STAbits.TRMT));
         U1TXREG = myStr[i++];
-        // BiosClearWDT();
     }
-    // Time_counter=0;
 }
 
 void APP_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
     BiosUARTInitialize(USART_ID_1, INT_SOURCE_USART_1_RECEIVE, INT_SOURCE_USART_1_TRANSMIT, INT_VECTOR_UART1_RX, INT_VECTOR_UART1_TX, 19200);
-    
     
     PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0 );
     PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0 );
     PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0, PORTS_PIN_MODE_ANALOG );
 
+    /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     appData.currentChannel = 0;         // Which channel we scan first
     appData.sampleCount = 0;            // How many samples of each channel have
@@ -272,7 +260,6 @@ void APP_Tasks ( void )
             {
                 scanbits |= (unsigned long long) 1 << ANx_Pins[i];
             }
-            BiosPrintf("Scanbits: %d - %x \n",scanbits);
 
             PLIB_ADCP_ChannelScanConfigure(ADCP_ID_1, (unsigned int) scanbits, 
                     (unsigned int)(scanbits >> 32), ADCP_SCAN_TRG_SRC_TMR3_MATCH);
@@ -301,42 +288,6 @@ void APP_Tasks ( void )
             break;
 
         case APP_STATE_DISPLAY_DATA:
-        
-            //BiosPrintf("ADC[0][0]: %d - %X \n",appData.ADC_Data[0][0],appData.ADC_Data[0][0]);
-            // Display the data on the E16 LEDs for the very first sample
-            // if (appData.ADC_Data[0][0] > 8)
-            // BiosPrintf("\n");
-            // else
-            // if (appData.ADC_Data[0][0] > 40)
-            //     BSP_LEDOn(LED_4);
-            // else
-            //     BSP_LEDOff(LED_4);
-            // if (appData.ADC_Data[0][0] > 72)
-            //     BSP_LEDOn(LED_5);
-            // else
-            //     BSP_LEDOff(LED_5);
-            // if (appData.ADC_Data[0][0] > 104)
-            //     BSP_LEDOn(LED_6);
-            // else
-            //     BSP_LEDOff(LED_6);
-            // if (appData.ADC_Data[0][0] > 136)
-            //     BSP_LEDOn(LED_7);
-            // else
-            //     BSP_LEDOff(LED_7);
-            // if (appData.ADC_Data[0][0] > 168)
-            //     BSP_LEDOn(LED_8);
-            // else
-            //     BSP_LEDOff(LED_8);
-            // if (appData.ADC_Data[0][0] > 200)
-            //     BSP_LEDOn(LED_9);
-            // else
-            //     BSP_LEDOff(LED_9);
-            // if (appData.ADC_Data[0][0] > 232)
-            //     // BiosPrintf("ADC: %d - %X \n",appData.ADC_Data[0][0],appData.ADC_Data[0][0]);
-            //     BSP_LEDOn(LED_10);
-            // else
-            //     BSP_LEDOff(LED_10);
-
             // Go back to collecting data.
             appData.state = APP_STATE_COLLECT_DATA;
             break;
@@ -395,7 +346,6 @@ void APP_Normalize_Data ( void )
             BiosPrintf("AD[%d][%d]: %d\n",channels,i,appData.ADC_Data[channels][i]);
             appData.ADC_Data[channels][i] =
                     ADC_Normalize_Data(appData.ADC_Data[channels][i]);
-            // BiosPrintf("Normalize: %d\n",appData.ADC_Data[channels][i]);
         }
     }
 }
