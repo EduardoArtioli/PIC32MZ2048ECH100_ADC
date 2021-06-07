@@ -17,13 +17,17 @@ Read potentiometer at pin AN24 and outputs raw read throug USART
 ## Project Properties
 
 MPLAB : v5.50
+
 Tool : PICKit3
+
 Pack : PIC32MZ-EC_DFP - 1.3.44
 
 Compiler Toolchain:
-XC32. (v2.30)
-      (v1.44)
-      (v1.40)
+
+XC32. 
+  (v2.30)
+  (v1.44)
+  (v1.40)
 
 ## Links
 
