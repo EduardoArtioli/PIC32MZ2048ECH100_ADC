@@ -28,4 +28,4 @@ Read potentiometer at pin AN24 and outputs raw read throug USART
 
 ## Harmony Pin Diagram
 
-  ![MPLAB Harmony Pin Diagram](_Images/Harmony_pins.PNG?raw=true "Pin Diagram")
+  ![MPLAB Harmony Pin Diagram](https://raw.githubusercontent.com/EduardoArtioli/PIC32MZ2048ECH100_ADC/main/_Images/Harmony_pins.png "Pin Diagram")
