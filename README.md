@@ -4,7 +4,7 @@
 ![Erros](https://img.shields.io/badge/Erros-0-red.svg)
 ![Warnings](https://img.shields.io/badge/Warnings-0-yellow.svg)
 
-![Serial Output](_Images/Output.GIF?raw=true "Serial Output")
+![Serial Output](https://raw.githubusercontent.com/EduardoArtioli/PIC32MZ2048ECH100_ADC/main/_Images/Output.gif "Serial Output")
 
 ## About
 
