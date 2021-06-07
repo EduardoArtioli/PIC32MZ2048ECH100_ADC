@@ -12,6 +12,8 @@ This project uses MPLAB HARMONY V2.06.
 
 Read potentiometer at pin AN24 and outputs raw read throug USART
 
+*You need to generate code from MPLAB Harmony configurator to run this project.*
+
 ## Links
 
 #### Product page (microchip)
