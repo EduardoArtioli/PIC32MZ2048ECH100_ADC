@@ -180,7 +180,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16</Path>
-        <Checksum dnOrder="2">32AFBACB3FA9DB0CD3D5D5FA44C0D8A0</Checksum>
+        <Checksum dnOrder="2">E8A39AD875C8E4DA3C01CD6A78431259</Checksum>
         <ProjectFileChecksum dnOrder="3">963727E31B3343E395522A51AD8F390F</ProjectFileChecksum>
       </Template>
       <Template dnOrder="5">
@@ -266,7 +266,7 @@
       <Template dnOrder="19">
         <Name dnOrder="0">bsp.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16/bsp</Path>
-        <Checksum dnOrder="2">CE23867C15520E6E7DAF56948BEE1EE3</Checksum>
+        <Checksum dnOrder="2">D73DE25A4F50F40D85009CFD25533E49</Checksum>
         <ProjectFileChecksum dnOrder="3">62B6E60682FF36B7A5ACE784C59D4619</ProjectFileChecksum>
       </Template>
       <Template dnOrder="20">
@@ -278,7 +278,7 @@
       <Template dnOrder="21">
         <Name dnOrder="0">bsp.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16/bsp</Path>
-        <Checksum dnOrder="2">F08916C1F9C7CA03786F076CD50BF294</Checksum>
+        <Checksum dnOrder="2">4823D802073D564FCFA9FBDD4C67681C</Checksum>
         <ProjectFileChecksum dnOrder="3">4C88D07A978BEF77FDA7E6ACA7CB07BC</ProjectFileChecksum>
       </Template>
     </Templates>
