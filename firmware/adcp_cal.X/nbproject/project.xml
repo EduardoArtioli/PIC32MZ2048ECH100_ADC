@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <Harmony xmlns="Harmony" MHC="true"/>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>adcp_cal</name>
+            <creation-uuid>e54023e9-3948-44ef-bf6f-29d8b223e555</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>../src</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/driver/tmr/src/dynamic</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/peripheral/int/src</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/system/devcon/src</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/system/dma/src</sourceRootElem>
+                <sourceRootElem>../../../../../../../bsp/pic32mz_ec_pim+e16</sourceRootElem>
+                <sourceRootElem>../src/system_config/pic32mz_ec_pim_e16</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/system/clk/src</sourceRootElem>
+                <sourceRootElem>../../../../../../../framework/system/int/src</sourceRootElem>
+                <sourceRootElem>../../../../..</sourceRootElem>
+                <sourceRootElem>../src/pic32mz_ec_pim_e16</sourceRootElem>
+                <sourceRootElem>..\src</sourceRootElem>
+                <sourceRootElem>..\src\pic32mz_ec_pim_e16</sourceRootElem>
+                <sourceRootElem>..\src\system_config\pic32mz_ec_pim_e16</sourceRootElem>
+                <sourceRootElem>../../../../../../microchip/harmony/v2_06</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>pic32mz_ec_pim_e16</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>
