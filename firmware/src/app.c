@@ -88,7 +88,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 APP_DATA __attribute__ ((aligned(16))) __attribute__((coherent))  appData;
 ANx_Array ANx_Pins = PINS_TO_SAMPLE;
+APP_DATA __attribute__ ((aligned(16))) __attribute__((coherent))  appData;
+ANx_Array2 ANx_Pins2 = PINS_TO_SAMPLE2;
 
+
+DMA_TRIGGER_SOURCE eventSrc;
+SYS_DMA_CHANNEL_OP_MODE modeEnable = (SYS_DMA_CHANNEL_OP_MODE_AUTO);
+DMA_CHANNEL channel = DMA_CHANNEL_ANY;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -164,9 +170,50 @@ void APP_Initialize ( void )
     // USART BAUD IS WRONG DUE TO CLOCK, IF USING 19200 MUST READ AS 78000 BAUD.
     BiosUARTInitialize(USART_ID_1, INT_SOURCE_USART_1_RECEIVE, INT_SOURCE_USART_1_TRANSMIT, INT_VECTOR_UART1_RX, INT_VECTOR_UART1_TX, 19200);
     
+//Sensor Corrente P1 - AN19   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_C, PORTS_BIT_POS_4 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_C, PORTS_BIT_POS_4 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_C, PORTS_BIT_POS_4, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P2 - AN12   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_G, PORTS_BIT_POS_8 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_G, PORTS_BIT_POS_8 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_G, PORTS_BIT_POS_8, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P3 - AN30   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_13 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_13 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_13, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P4 - AN6   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_11 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_11 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_11, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P5 - AN10   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_15 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_15 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_15, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P6 - AN7   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_12 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_12 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_12, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P7 - AN31   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_12 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_12 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_12, PORTS_PIN_MODE_ANALOG );
+//Sensor Corrente P8 - AN4   
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_4 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_4 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_4, PORTS_PIN_MODE_ANALOG );
+//Sensor Temperatura - AN24                   
     PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0 );
     PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0 );
     PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_0, PORTS_PIN_MODE_ANALOG );
+//Sensor 12 Volts - AN8
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_13 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_13 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_13, PORTS_PIN_MODE_ANALOG );
+//Sensor 24 Volts - AN9
+    PLIB_PORTS_PinDirectionInputSet( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_14 );
+    PLIB_PORTS_ChangeNoticePullUpPerPortDisable( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_14 );
+    PLIB_PORTS_PinModePerPortSelect( PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_14, PORTS_PIN_MODE_ANALOG );
 
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
@@ -184,9 +231,12 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */
 
+            int oioi = 12;
+            int vira = 0;
+
 void APP_Tasks ( void )
 {
-    int i, num_pins = APP_NUM_ANX_PINS > 6 ? 6 : APP_NUM_ANX_PINS;
+    int i, num_pins = APP_NUM_ANX_PINS > 8 ? 8 : APP_NUM_ANX_PINS;
     unsigned long long scanbits = 0;
 
     /* Check the application's current state. */
@@ -196,8 +246,10 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
             BiosPrintf("DESLIGA_RELE \n");
 
-            PLIB_ADCP_Configure(ADCP_ID_1, ADCP_VREF_VREFP_VREFN, false, false, false,
-                    ADCP_CLK_SRC_SYSCLK, (APP_FCY / APP_TAD / 2), 32, 0, 32);
+            // PLIB_ADCP_Configure(ADCP_ID_1, ADCP_VREF_VREFP_VREFN, false, false, false,
+            //         ADCP_CLK_SRC_SYSCLK, (APP_FCY / APP_TAD / 2), 32, 0, 32);
+            PLIB_ADCP_Configure(ADCP_ID_1, ADCP_VREF_AVDD_AVSS, false, false, true,
+                    ADCP_CLK_SRC_SYSCLK, 150, 31, 0, 0);
 
             AD1CAL1 = 0xB3341210;  // Use software calibration values into AD1CALx
             AD1CAL2 = 0x01FFA769;
@@ -259,8 +311,20 @@ void APP_Tasks ( void )
             // Set up the oversampling filters, the channel scan, and the DMA
             for (i = 0; i < num_pins; i++)
             {
-                scanbits |= (unsigned long long) 1 << ANx_Pins[i];
+                scanbits = 0;
             }
+
+            scanbits |= (unsigned long long) 1 << 4;
+            scanbits |= (unsigned long long) 1 << 6;
+            scanbits |= (unsigned long long) 1 << 7;
+            scanbits |= (unsigned long long) 1 << 8;
+            scanbits |= (unsigned long long) 1 << 9;
+            scanbits |= (unsigned long long) 1 << 10;
+            scanbits |= (unsigned long long) 1 << 12;
+            scanbits |= (unsigned long long) 1 << 19;
+            scanbits |= (unsigned long long) 1 << 24;
+            scanbits |= (unsigned long long) 1 << 30;
+            scanbits |= (unsigned long long) 1 << 31;
 
             PLIB_ADCP_ChannelScanConfigure(ADCP_ID_1, (unsigned int) scanbits, 
                     (unsigned int)(scanbits >> 32), ADCP_SCAN_TRG_SRC_TMR3_MATCH);
@@ -285,6 +349,115 @@ void APP_Tasks ( void )
         case APP_STATE_NORMALIZE_DATA:
             // Set a breakpoint here or after this line to see the data collected.
             APP_Normalize_Data();
+            // appData.state = APP_STATE_DISPLAY_DATA;
+            // int i;
+            // for (i = 0; i < APP_NUM_ANX_PINS; i++)
+            // {
+            //     SYS_DMA_ChannelDisable(appData.dma_handle[i]);
+            // }
+            // appData.state = APP_STATE_SETUP_FOR_DATA_COLLECTION;
+
+            // oioi = vira == 0 ? 12 : 12;
+            // vira = !vira;
+
+            switch (oioi)
+            {
+            case 12:
+                oioi = 19;
+                vira = 1;
+                break;
+            case 19:
+                oioi = 30;
+                vira = 2;
+                break;
+            case 30:
+                oioi = 6;
+                vira = 3;
+                break;
+            case 6:
+                oioi = 10;
+                vira = 4;
+                break;
+            case 10:
+                oioi = 7;
+                vira = 6;
+                break;
+            case 7:
+                oioi = 31;
+                vira = 7;
+                break;
+            case 31:
+                oioi = 4;
+                vira = 0;
+                break;
+            case 4:
+                oioi = 24;
+                vira = 1;
+                break;
+            case 24:
+                oioi = 8;
+                vira = 2;
+                break;
+            case 8:
+                oioi = 9;
+                vira = 3;
+                break;
+            case 9:
+                oioi = 12;
+                vira = 4;
+                break;
+            
+            default:
+                break;
+            }
+
+
+
+
+        appData.dma_handle[vira] = SYS_DMA_ChannelAllocate(channel);
+
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro1\n");
+        }
+
+        SYS_DMA_ChannelRelease(appData.dma_handle[vira]);
+        
+        appData.dma_handle[vira] = SYS_DMA_ChannelAllocate(channel);
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro2\n");
+        }
+        // appData.dma_handle[0] = SYS_DMA_ChannelAllocate(channel);
+
+        eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)oioi;
+
+        SYS_DMA_ChannelSetup(appData.dma_handle[vira], modeEnable, eventSrc);
+
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro3\n");
+        }
+        SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[vira],APP_DMA_EventHandler, 0+1);
+
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro4\n");
+        }
+        SYS_DMA_ChannelTransferAdd(appData.dma_handle[vira], ((const unsigned int *)&AD1DATA0) + oioi,
+                sizeof(ADC_DATA_TYPE), &appData.ADC_Data[0],
+                APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
+
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro5\n");
+        }
+        SYS_DMA_ChannelEnable(appData.dma_handle[vira]);
+
+        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
+        {
+            BiosPrintf("Erro6\n");
+        }
             appData.state = APP_STATE_DISPLAY_DATA;
             break;
 
@@ -309,23 +482,24 @@ void APP_Tasks ( void )
 
 void APP_DMA_Setup ( void )
 {
-    int i;
-    DMA_TRIGGER_SOURCE eventSrc;
-    SYS_DMA_CHANNEL_OP_MODE modeEnable = (SYS_DMA_CHANNEL_OP_MODE_AUTO);
-    DMA_CHANNEL channel = DMA_CHANNEL_ANY;
+    // int i;
     
-    for (i = 0; i < APP_NUM_ANX_PINS; i++)
-    {
-        appData.dma_handle[i] = SYS_DMA_ChannelAllocate(channel);
-        eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)ANx_Pins[i];
-        SYS_DMA_ChannelSetup(appData.dma_handle[i], modeEnable, eventSrc);
-        SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[i],
-                APP_DMA_EventHandler, i+1);
-        SYS_DMA_ChannelTransferAdd(appData.dma_handle[i], ((const unsigned int *)&AD1DATA0) + ANx_Pins[i],
-                sizeof(ADC_DATA_TYPE), &appData.ADC_Data[i],
+    // for (i = 0; i < APP_NUM_ANX_PINS; i++)
+    // {
+        appData.dma_handle[0] = SYS_DMA_ChannelAllocate(channel);
+
+        eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)12;
+
+        SYS_DMA_ChannelSetup(appData.dma_handle[0], modeEnable, eventSrc);
+
+        SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[0],APP_DMA_EventHandler, 0+1);
+
+        SYS_DMA_ChannelTransferAdd(appData.dma_handle[0], ((const unsigned int *)&AD1DATA0) + 12,
+                sizeof(ADC_DATA_TYPE), &appData.ADC_Data[0],
                 APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
-        SYS_DMA_ChannelEnable(appData.dma_handle[i]);
-    }
+
+        SYS_DMA_ChannelEnable(appData.dma_handle[0]);
+    // }
 }
 
 /******************************************************************************
@@ -338,17 +512,19 @@ void APP_DMA_Setup ( void )
 
 void APP_Normalize_Data ( void )
 {
-    int i, channels;
+    // int i, channels;
 
-    for (channels = 0; channels < APP_NUM_ANX_PINS; channels++)
-    {
-        for (i = 0; i < APP_NUM_ADC_SAMPLES; i++)
-        {
-            BiosPrintf("AD[%d][%d]: %d\n",channels,i,appData.ADC_Data[channels][i]);
-            appData.ADC_Data[channels][i] =
-                    ADC_Normalize_Data(appData.ADC_Data[channels][i]);
-        }
-    }
+    // for (channels = 0; channels < APP_NUM_ANX_PINS; channels++)
+    // {
+    //     for (i = 0; i < APP_NUM_ADC_SAMPLES; i++)
+    //     {
+    //         BiosPrintf("AD[%d][%d]: %d\n",channels,i,appData.ADC_Data[channels][i]);
+    //         appData.ADC_Data[channels][i] =
+    //                 ADC_Normalize_Data(appData.ADC_Data[channels][i]);
+    //     }
+    // }
+    
+    BiosPrintf("%d:  %d\n",oioi,appData.ADC_Data[0][0]);
 }
 
 /******************************************************************************
@@ -384,9 +560,11 @@ void APP_DMA_EventHandler(SYS_DMA_TRANSFER_EVENT event,
             break;
 
         case SYS_DMA_TRANSFER_EVENT_ERROR:
+            BiosPrintf("SYS_DMA_TRANSFER_EVENT_ERROR\n");
             break;
 
         case SYS_DMA_TRANSFER_EVENT_ABORT:
+            BiosPrintf("SYS_DMA_TRANSFER_EVENT_ABORT\n");
             break;
 
         default:

@@ -53,13 +53,14 @@ extern "C" {
 //------------------------BEGIN USER DEFINES-----------------------
 // TODO: User to configure these items according to their application
 //-----------------------------------------------------------------
-#define APP_NUM_ADC_SAMPLES 10	// The number of ADC data samples to capture
-#define APP_FCY 96000000		// System frequency in Hz, which will be used to derive the ADC TAD clock
+#define APP_NUM_ADC_SAMPLES 1	// The number of ADC data samples to capture
+#define APP_FCY 80000000		// System frequency in Hz, which will be used to derive the ADC TAD clock
 				//  User must configure PLL and oscillator accordingly. APP_FCY =
-#define APP_PBCLK3 48000000	// APP_PBCLK3 frequency in Hz, which will drive Timer3 for triggering
-#define APP_TAD 1000000		// Desired TAD clock Frequency (Use only interger value)
-#define APP_TAD_Sample_Time 10	// For shared S/H_5 chan, how many TAD clks to sample (SAMC = 10)
-#define APP_NUM_ANX_PINS    1	// How many shared channels will be used
+#define APP_PBCLK3 8000000	// APP_PBCLK3 frequency in Hz, which will drive Timer3 for triggering
+#define APP_TAD 8000000		// Desired TAD clock Frequency (Use only interger value)
+#define APP_TAD_Sample_Time 3	// For shared S/H_5 chan, how many TAD clks to sample (SAMC = 10)
+#define APP_NUM_ANX_PINS    8	// How many shared channels will be used
+#define APP_NUM_ANX_TOTAL_PINS    11	// How many shared channels will be used
 
 #define ADC_MODE	0	// 0=ADC Single ended, 2=ADC Differential mode
 #define ADC_SIGN	0	// 0=Unsigned, 1=Signed
@@ -70,7 +71,10 @@ extern "C" {
 //-------- ADC Ext Ref voltages and Anx inputs to sample -----------
 #define EXT_VREF_PLUS   3.3	// External VREF+ pin voltage level
 #define EXT_VREF_MINUS  0.0 	// External VREF- pin voltage level
-#define PINS_TO_SAMPLE  {24} // Which ANx inputs will be sampled during the run
+
+#define PINS_TO_SAMPLE  {12,19,30,6,10,7,31,4} // Which ANx inputs will be sampled during the run
+#define PINS_TO_SAMPLE2  {12,24,30,6,10,7,31,4,19,8,9} // Which ANx inputs will be sampled during the run
+
 //------------------------END USER DEFINES-----------------------
 
 //----------------- USER DEFINES ERROR CHECKING ------------------
@@ -126,6 +130,10 @@ extern "C" {
 typedef unsigned char ANx_Array[APP_NUM_ANX_PINS];
 
   extern ANx_Array ANx_Pins;
+
+typedef unsigned char ANx_Array2[APP_NUM_ANX_TOTAL_PINS];
+
+  extern ANx_Array2 ANx_Pins2;
 
 #define ADC_MAX_UNSIGNED_14BITS (ADC_DATA_TYPE)0x3FFF
 #define ADC_MAX_SIGNED_14BITS   (ADC_DATA_TYPE)0x1FFF

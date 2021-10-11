@@ -1,6 +1,6 @@
 build/pic32mz_ec_pim_e16/production/_ext/1085185472/sys_devcon.o: \
  ../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/src/sys_devcon.c \
- ../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/src/sys_devcon_local.h \
+ ../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/src/sys_devcon_local.h \
  ../src/system_config/pic32mz_ec_pim_e16/system_config.h \
  ../src/system_config/pic32mz_ec_pim_e16/bsp/bsp.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports.h \
@@ -34,7 +34,7 @@ build/pic32mz_ec_pim_e16/production/_ext/1085185472/sys_devcon.o: \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h \
- ../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/sys_devcon.h \
+ ../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/sys_devcon.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/system.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_common.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_module.h \
@@ -132,7 +132,7 @@ build/pic32mz_ec_pim_e16/production/_ext/1085185472/sys_devcon.o: \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/processor/../templates/osc_PLLBypass_Unsupported.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/processor/../templates/osc_BTPLLClockOut_Unsupported.h
 
-../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/src/sys_devcon_local.h:
+../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/src/sys_devcon_local.h:
 
 ../src/system_config/pic32mz_ec_pim_e16/system_config.h:
 
@@ -200,7 +200,7 @@ build/pic32mz_ec_pim_e16/production/_ext/1085185472/sys_devcon.o: \
 
 ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/ports/plib_ports_compatibility.h:
 
-../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/sys_devcon.h:
+../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/sys_devcon.h:
 
 ../../../../../../../../microchip/harmony/v2_06/framework/system/system.h:
 

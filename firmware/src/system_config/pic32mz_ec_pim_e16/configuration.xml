@@ -158,7 +158,7 @@
       <Template dnOrder="0">
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16</Path>
-        <Checksum dnOrder="2">79292D9BE079DB5DB72AB6E826A59ADC</Checksum>
+        <Checksum dnOrder="2">2FF0A1DACF7C91B433E60F8250D87D79</Checksum>
         <ProjectFileChecksum dnOrder="3">20F174D095FF8F580E450CDDFAC8D0A1</ProjectFileChecksum>
       </Template>
       <Template dnOrder="1">
@@ -170,7 +170,7 @@
       <Template dnOrder="2">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16</Path>
-        <Checksum dnOrder="2">BD2E4E56F2791BD98568080276BCA672</Checksum>
+        <Checksum dnOrder="2">EBBF6E9C711AE142DC26ABF8E6C888C9</Checksum>
         <ProjectFileChecksum dnOrder="3">F34897DD661C36289C7F62854FBCBCFC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="3">
@@ -180,7 +180,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ec_pim_e16</Path>
-        <Checksum dnOrder="2">E8A39AD875C8E4DA3C01CD6A78431259</Checksum>
+        <Checksum dnOrder="2">10E25FA5B62054457BDF106AD6DCBCE7</Checksum>
         <ProjectFileChecksum dnOrder="3">963727E31B3343E395522A51AD8F390F</ProjectFileChecksum>
       </Template>
       <Template dnOrder="5">

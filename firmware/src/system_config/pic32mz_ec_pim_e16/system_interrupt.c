@@ -100,6 +100,47 @@ void __ISR(_DMA0_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh0(void)
     SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_0);
 }
 
+void __ISR(_DMA1_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh1(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_1);
+}
+
+
+void __ISR(_DMA2_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh2(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_2);
+}
+
+
+void __ISR(_DMA3_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh3(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_3);
+}
+
+
+void __ISR(_DMA4_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh4(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_4);
+}
+
+
+void __ISR(_DMA5_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh5(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_5);
+}
+
+
+void __ISR(_DMA6_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh6(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_6);
+}
+
+
+void __ISR(_DMA7_VECTOR, ipl5AUTO) _IntHandlerSysDmaCh7(void)
+{          
+    SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_7);
+}
+
  
 
  /*******************************************************************************

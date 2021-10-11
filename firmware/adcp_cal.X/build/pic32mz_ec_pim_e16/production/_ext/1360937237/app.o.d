@@ -35,7 +35,7 @@ build/pic32mz_ec_pim_e16/production/_ext/1360937237/app.o: ../src/app.c \
  ../src/system_config/pic32mz_ec_pim_e16/system_definitions.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_common.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_module.h \
- ../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/sys_devcon.h \
+ ../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/sys_devcon.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/system.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/system/clk/sys_clk.h \
  ../../../../../../../../microchip/harmony/v2_06/framework/peripheral/osc/plib_osc.h \
@@ -330,7 +330,7 @@ build/pic32mz_ec_pim_e16/production/_ext/1360937237/app.o: ../src/app.c \
 
 ../../../../../../../../microchip/harmony/v2_06/framework/system/common/sys_module.h:
 
-../src/system_config/pic32mz_ec_pim_e16/framework/system/devcon/sys_devcon.h:
+../../../../../../../../microchip/harmony/v2_06/framework/system/devcon/sys_devcon.h:
 
 ../../../../../../../../microchip/harmony/v2_06/framework/system/system.h:
 
