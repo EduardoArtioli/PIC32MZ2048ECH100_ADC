@@ -136,9 +136,9 @@ typedef struct
     int sampleCount;
 
     // Data collected from the ADC. Ping/Pong buffers for DMA
-    volatile ADC_DATA_TYPE ADC_Data[APP_NUM_ANX_PINS][APP_NUM_ADC_SAMPLES];
+    volatile ADC_DATA_TYPE ADC_Data[12][APP_NUM_ADC_SAMPLES];
 
-    SYS_DMA_CHANNEL_HANDLE dma_handle[APP_NUM_ANX_PINS];
+    SYS_DMA_CHANNEL_HANDLE dma_handle[8];
     SYS_MODULE_OBJ tmr_handle;
 
 } APP_DATA;

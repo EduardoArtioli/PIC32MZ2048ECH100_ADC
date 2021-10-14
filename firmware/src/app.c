@@ -230,13 +230,12 @@ void APP_Initialize ( void )
   Remarks:
     See prototype in app.h.
  */
+int addata[12];
+int print_c;
 
-            int oioi = 12;
-            int vira = 0;
-
+int switch_dma;
 void APP_Tasks ( void )
 {
-    int i, num_pins = APP_NUM_ANX_PINS > 8 ? 8 : APP_NUM_ANX_PINS;
     unsigned long long scanbits = 0;
 
     /* Check the application's current state. */
@@ -244,7 +243,7 @@ void APP_Tasks ( void )
     {
         /* Application's initial state. */
         case APP_STATE_INIT:
-            BiosPrintf("DESLIGA_RELE \n");
+            BiosPrintf(".\n");
 
             // PLIB_ADCP_Configure(ADCP_ID_1, ADCP_VREF_VREFP_VREFN, false, false, false,
             //         ADCP_CLK_SRC_SYSCLK, (APP_FCY / APP_TAD / 2), 32, 0, 32);
@@ -309,11 +308,6 @@ void APP_Tasks ( void )
         case APP_STATE_SETUP_FOR_DATA_COLLECTION:
             APP_DMA_Setup();
             // Set up the oversampling filters, the channel scan, and the DMA
-            for (i = 0; i < num_pins; i++)
-            {
-                scanbits = 0;
-            }
-
             scanbits |= (unsigned long long) 1 << 4;
             scanbits |= (unsigned long long) 1 << 6;
             scanbits |= (unsigned long long) 1 << 7;
@@ -342,6 +336,9 @@ void APP_Tasks ( void )
             if (APP_NUM_ADC_SAMPLES*APP_NUM_ANX_PINS <= appData.sampleCount) // We've collected all
             {
                 DRV_TMR0_Stop();
+                int i;
+                for(i = 0; i < 8; i++)
+                    SYS_DMA_ChannelRelease(appData.dma_handle[i]);
                 appData.state = APP_STATE_NORMALIZE_DATA;
             }
             break;
@@ -349,126 +346,27 @@ void APP_Tasks ( void )
         case APP_STATE_NORMALIZE_DATA:
             // Set a breakpoint here or after this line to see the data collected.
             APP_Normalize_Data();
-            // appData.state = APP_STATE_DISPLAY_DATA;
-            // int i;
-            // for (i = 0; i < APP_NUM_ANX_PINS; i++)
-            // {
-            //     SYS_DMA_ChannelDisable(appData.dma_handle[i]);
-            // }
-            // appData.state = APP_STATE_SETUP_FOR_DATA_COLLECTION;
-
-            // oioi = vira == 0 ? 12 : 12;
-            // vira = !vira;
-
-            switch (oioi)
-            {
-            case 12:
-                oioi = 19;
-                vira = 1;
-                break;
-            case 19:
-                oioi = 30;
-                vira = 2;
-                break;
-            case 30:
-                oioi = 6;
-                vira = 3;
-                break;
-            case 6:
-                oioi = 10;
-                vira = 4;
-                break;
-            case 10:
-                oioi = 7;
-                vira = 6;
-                break;
-            case 7:
-                oioi = 31;
-                vira = 7;
-                break;
-            case 31:
-                oioi = 4;
-                vira = 0;
-                break;
-            case 4:
-                oioi = 24;
-                vira = 1;
-                break;
-            case 24:
-                oioi = 8;
-                vira = 2;
-                break;
-            case 8:
-                oioi = 9;
-                vira = 3;
-                break;
-            case 9:
-                oioi = 12;
-                vira = 4;
-                break;
-            
-            default:
-                break;
-            }
-
-
-
-
-        appData.dma_handle[vira] = SYS_DMA_ChannelAllocate(channel);
-
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro1\n");
-        }
-
-        SYS_DMA_ChannelRelease(appData.dma_handle[vira]);
-        
-        appData.dma_handle[vira] = SYS_DMA_ChannelAllocate(channel);
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro2\n");
-        }
-        // appData.dma_handle[0] = SYS_DMA_ChannelAllocate(channel);
-
-        eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)oioi;
-
-        SYS_DMA_ChannelSetup(appData.dma_handle[vira], modeEnable, eventSrc);
-
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro3\n");
-        }
-        SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[vira],APP_DMA_EventHandler, 0+1);
-
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro4\n");
-        }
-        SYS_DMA_ChannelTransferAdd(appData.dma_handle[vira], ((const unsigned int *)&AD1DATA0) + oioi,
-                sizeof(ADC_DATA_TYPE), &appData.ADC_Data[0],
-                APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
-
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro5\n");
-        }
-        SYS_DMA_ChannelEnable(appData.dma_handle[vira]);
-
-        if(SYS_DMA_CHANNEL_HANDLE_INVALID == appData.dma_handle[vira])
-        {
-            BiosPrintf("Erro6\n");
-        }
+            APP_DMA_Setup();
             appData.state = APP_STATE_DISPLAY_DATA;
             break;
 
         case APP_STATE_DISPLAY_DATA:
             // Go back to collecting data.
             appData.state = APP_STATE_COLLECT_DATA;
+            print_c++;
             break;
 
         case APP_STATE_SPIN:
         default:
             break;
+    }
+    if(print_c == 12){
+        print_c = 0;
+        int i;
+        for (i = 0; i < 11; i++)
+        {
+            BiosPrintf("[%d]:%d\n",i,addata[i]);
+        }
     }
 }
 
@@ -479,27 +377,46 @@ void APP_Tasks ( void )
   Remarks:
     See prototype in app.h.
  */
-
 void APP_DMA_Setup ( void )
 {
-    // int i;
-    
-    // for (i = 0; i < APP_NUM_ANX_PINS; i++)
-    // {
-        appData.dma_handle[0] = SYS_DMA_ChannelAllocate(channel);
+    int i;
+    if(switch_dma == 0){
+        for (i = 0; i < 8; i++)
+        {
+            appData.dma_handle[i] = SYS_DMA_ChannelAllocate(channel);
 
-        eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)12;
+            eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)ANx_Pins2[i];
 
-        SYS_DMA_ChannelSetup(appData.dma_handle[0], modeEnable, eventSrc);
+            SYS_DMA_ChannelSetup(appData.dma_handle[i], modeEnable, eventSrc);
 
-        SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[0],APP_DMA_EventHandler, 0+1);
+            SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[i],APP_DMA_EventHandler, i+1);
 
-        SYS_DMA_ChannelTransferAdd(appData.dma_handle[0], ((const unsigned int *)&AD1DATA0) + 12,
-                sizeof(ADC_DATA_TYPE), &appData.ADC_Data[0],
-                APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
+            SYS_DMA_ChannelTransferAdd(appData.dma_handle[i], ((const unsigned int *)&AD1DATA0) + ANx_Pins2[i],
+                    sizeof(ADC_DATA_TYPE), &appData.ADC_Data[i],
+                    APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
 
-        SYS_DMA_ChannelEnable(appData.dma_handle[0]);
-    // }
+            SYS_DMA_ChannelEnable(appData.dma_handle[i]);
+        }
+        switch_dma = 1;
+    }else{
+        for (i = 3; i < 11; i++)
+        {
+            appData.dma_handle[i - 3] = SYS_DMA_ChannelAllocate(channel);
+
+            eventSrc = DMA_TRIGGER_ADC1_DATA0 + (DMA_TRIGGER_SOURCE)ANx_Pins2[i];
+
+            SYS_DMA_ChannelSetup(appData.dma_handle[i - 3], modeEnable, eventSrc);
+
+            SYS_DMA_ChannelTransferEventHandlerSet(appData.dma_handle[i - 3],APP_DMA_EventHandler, i+1-3);
+
+            SYS_DMA_ChannelTransferAdd(appData.dma_handle[i - 3], ((const unsigned int *)&AD1DATA0) + ANx_Pins2[i],
+                    sizeof(ADC_DATA_TYPE), &appData.ADC_Data[i],
+                    APP_NUM_ADC_SAMPLES * sizeof(ADC_DATA_TYPE), sizeof(ADC_DATA_TYPE));
+
+            SYS_DMA_ChannelEnable(appData.dma_handle[i - 3]);
+        }
+        switch_dma = 0;
+    }
 }
 
 /******************************************************************************
@@ -510,21 +427,20 @@ void APP_DMA_Setup ( void )
     See prototype in app.h.
  */
 
-void APP_Normalize_Data ( void )
-{
-    // int i, channels;
 
-    // for (channels = 0; channels < APP_NUM_ANX_PINS; channels++)
-    // {
-    //     for (i = 0; i < APP_NUM_ADC_SAMPLES; i++)
-    //     {
-    //         BiosPrintf("AD[%d][%d]: %d\n",channels,i,appData.ADC_Data[channels][i]);
-    //         appData.ADC_Data[channels][i] =
-    //                 ADC_Normalize_Data(appData.ADC_Data[channels][i]);
-    //     }
-    // }
-    
-    BiosPrintf("%d:  %d\n",oioi,appData.ADC_Data[0][0]);
+void APP_Normalize_Data ( void )
+{  
+        addata[0] = appData.ADC_Data[1][0];
+        addata[1] = appData.ADC_Data[0][0];
+        addata[2] = appData.ADC_Data[2][0];
+        addata[3] = appData.ADC_Data[3][0];
+        addata[4] = appData.ADC_Data[4][0];
+        addata[5] = appData.ADC_Data[5][0];
+        addata[6] = appData.ADC_Data[6][0];
+        addata[7] = appData.ADC_Data[7][0];
+        addata[8] = appData.ADC_Data[8][0];
+        addata[9] = appData.ADC_Data[9][0];
+        addata[10] = appData.ADC_Data[10][0];
 }
 
 /******************************************************************************

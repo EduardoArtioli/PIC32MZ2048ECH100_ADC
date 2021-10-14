@@ -73,7 +73,7 @@ extern "C" {
 #define EXT_VREF_MINUS  0.0 	// External VREF- pin voltage level
 
 #define PINS_TO_SAMPLE  {12,19,30,6,10,7,31,4} // Which ANx inputs will be sampled during the run
-#define PINS_TO_SAMPLE2  {12,24,30,6,10,7,31,4,19,8,9} // Which ANx inputs will be sampled during the run
+#define PINS_TO_SAMPLE2  {12,19,30,6,10,7,31,4,24,8,9} // Which ANx inputs will be sampled during the run
 
 //------------------------END USER DEFINES-----------------------
 
